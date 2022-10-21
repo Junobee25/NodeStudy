@@ -1,10 +1,10 @@
 var express = require('express');
 var bodyParser = require('body-parser')
 var app = express();
-app.locals.pretty = true;
+app.locals.pretty = true; // 제이드로 작성한 코드를 예쁘게 보일 수 있게 해줌
 app.set('view engine','jade');
 app.set('views','./views');
-app.use(express.static('public')); //정적인 서비스 추가하고 싶다!
+app.use(express.static('public')); //정적인 서비스 추가하고 싶다! express 홈페이지에서 나옴
 app.use(bodyParser.urlencoded({ extended: false }))
 app.get('/form',function(req,res){
     res.render('form');
@@ -13,13 +13,13 @@ app.get('/form_receiver',function(req,res){
     
     var title = req.query.title;
     var description=req.query.description;
-    res.send(title+','+description);
+    res.send(title+','+description); // ex) /form_receiver/?title=?&description=? 웹 앱에 복수개의 값을 전송하기
 });
 app.post('/form_receiver',function(req,res){
-    var title = req.body.title;
+    var title = req.body.title; // post 방식은 body
     var description = req.body.description;
-    res.send(title + ',' + description)
-})
+    res.send(title + ',' + description) // res.send 사용자가 어떠한 경로로 들어왔을때 어떤게 실행 될 것인가?
+}); //라우터 역할
 app.get('/topic/:id',function(req,res){
     
     var topics =[
@@ -31,7 +31,7 @@ app.get('/topic/:id',function(req,res){
         <a href ="/topic/0">JavaScript</a><br>
         <a href ="/topic/1">Nodejs</a><br>
         <a href ="/topic/2">Express</a><br>
-        ${topics[req.params.id]}
+        ${topics[req.params.id]} 
 
     `
     res.send(output);
